@@ -11,7 +11,7 @@ export default function Header() {
   };
 
   return (
-    <header className='bg-black sticky top-0 p-2 sm:p-5 opacity-95 mx-auto shadow-xl shadow-slate-800'>
+    <header className='bg-black sticky top-0 p-2 sm:p-5 opacity-95 mx-auto shadow-lg shadow-violet-600'>
       <div className='flex justify-between items-center relative'>
         <Link to="/">
         <h1 className='text-xl sm:text-5xl font-bold sm:font-extrabold'>
