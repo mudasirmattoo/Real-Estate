@@ -1,12 +1,19 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from '../redux/user/userSlice';
 
-export default function SignUp() {
-  const [formData,setFormData] = useState({});
-  const [error,setError] = useState(null);
-  const [loading,setLoading] = useState(false);
+export default function SignIn() {
+  const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const handleChange = (e) =>{
+  const dispatch = useDispatch(); // Define the dispatch function
+
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
@@ -14,33 +21,27 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); //prevent refresh
-
+    e.preventDefault();
     try {
-      setLoading(true);
-      const res = await fetch('/api/auth/signin',
-      {
-        method: 'POST',    
+      dispatch(signInStart()); // Use dispatch function here
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
         headers: {
-          'content-Type':'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-  
       const data = await res.json();
-      if(data.success === false){
-        setLoading(false);
-        setError(data.message);
+      console.log(data);
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
         return;
       }
-      setLoading(false);
-      setError(null);
-      navigate('/home');
+      dispatch(signInSuccess(data));
+      navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
-   
   };
 
   return (
@@ -48,28 +49,27 @@ export default function SignUp() {
       <h1 className="text-4xl font-bold sm:text-5xl text-white my-10 text-center">
         Sign In
       </h1>
-      <form onSubmit = { handleSubmit }
-        action=""
-        className="flex flex-col mx-auto justify-center gap-5"
-      >
-      
+      <form onSubmit={handleSubmit} action="" className="flex flex-col mx-auto justify-center gap-5">
         <input
           type="email"
           placeholder="Email"
           id="email"
-          className="border rounded outline-none p-3 text-center" onChange={handleChange}
+          className="border rounded outline-none p-3 text-center"
+          onChange={handleChange}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
-          className="border rounded outline-none p-3 text-center" onChange={handleChange}
+          className="border rounded outline-none p-3 text-center"
+          onChange={handleChange}
         />
         <button
-          type="submit" disabled={loading} 
+          type="submit"
+          disabled={loading}
           className="text-2xl font-bold sm:text-3xl text-white p-3 my-5 text-center border-violet-600 rounded bg-violet-600 hover:bg-violet-400 hover:text-black disabled:opacity-80"
         >
-          {loading ? 'Loading ...' : 'SIGN IN' }
+          {loading ? 'Loading ...' : 'SIGN IN'}
         </button>
       </form>
       <div className="flex  gap-3 justify-center mt-5">
