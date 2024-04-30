@@ -44,13 +44,13 @@ export default function SignUp() {
   };
 
   return (
-    <div className="my-20">
+    <div className="my-20 border border-violet-600 rounded-lg shadow-md shadow-violet-600 w-3/4 sm:w-1/3 mx-auto p-10">
       <h1 className="text-4xl font-bold sm:text-5xl text-white my-10 text-center">
         Sign Up
       </h1>
       <form onSubmit = { handleSubmit }
         action=""
-        className="flex flex-col w-3/4 sm:w-1/3 mx-auto justify-center gap-5"
+        className="flex flex-col  mx-auto justify-center gap-5"
       >
         <input
           type="text"
@@ -80,7 +80,7 @@ export default function SignUp() {
       <div className="flex  gap-3 justify-center mt-5">
         <p className='text-white text-xl '>Have an account ?</p>
         <Link to={"/sign-in"}>
-          <span className="text-xl sm:text-2xl text-blue-600 font-extrabold">
+          <span className="text-xl sm:text-2xl text-violet-600 font-extrabold">
             Sign In
           </span>
         </Link>
