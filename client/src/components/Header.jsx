@@ -34,13 +34,13 @@ export default function Header() {
           {isMenuOpen && (
             <ul className="absolute bg-black text-violet-600 font-bold py-2 px-4 rounded-b-lg right-0 mt-5 w-full opacity-90">
               <Link to="/">
-                <li className="text-right">Home</li>
+                <li className="text-right py-2">Home</li>
               </Link>
               <Link to="/about">
-                <li className="text-right">About</li>
+                <li className="text-right py-2">About</li>
               </Link>
               <Link to="/sign-in">
-                <li className="text-right">Sign In</li>
+                <li className="text-right py-2">Sign In</li>
               </Link>
             </ul>
           )}
